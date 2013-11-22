@@ -6,3 +6,5 @@
 *.ear
 
 */out/*
+.idea
+*/.idea
