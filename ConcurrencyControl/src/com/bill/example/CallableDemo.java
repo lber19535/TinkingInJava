@@ -8,6 +8,9 @@ import java.util.concurrent.Future;
 
 /**
  * Call back from thread demo
+ *
+ * results list will wait the future call back the value,
+ * if not the for loop will wait the thread call back
  * Created by Bill on 2014/12/22.
  */
 public class CallableDemo {
