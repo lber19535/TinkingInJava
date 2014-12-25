@@ -1,5 +1,6 @@
 package com.bill.example;
 
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -14,11 +15,14 @@ public class SleepingTask extends LiftOff{
     public void run() {
         while (countDown-- > 0){
             System.out.print(status());
+            Random random = new Random(System.nanoTime());
+            int second = random.nextInt(10);
             try {
-                TimeUnit.MICROSECONDS.sleep(200);
+                TimeUnit.SECONDS.sleep(second);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            System.out.println("second = " + second);
         }
     }
 
