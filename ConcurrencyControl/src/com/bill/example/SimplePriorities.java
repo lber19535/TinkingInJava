@@ -13,6 +13,9 @@ import java.util.concurrent.Executors;
  * So, I google some information about these, and the result is practically never use
  * these two method to try to influence threads action.
  *
+ * Reference: http://www.javamex.com/tutorials/threads/yield.shtml
+ *            http://www.javamex.com/tutorials/threads/priority.shtml
+ *
  * Created by Bill on 2014/12/24.
  */
 public class SimplePriorities implements Runnable {
