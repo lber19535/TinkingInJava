@@ -1,6 +1,7 @@
 package com.bill.example;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -19,21 +20,47 @@ public class CallableDemo {
 
         ArrayList<Future<String>> results = new ArrayList<Future<String>>();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10000; i++) {
             results.add(exec.submit(new TaskWithResult(i)));
         }
 
-        for (Future<String> future : results) {
-            try {
-                System.out.println("future = " + future.get());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } finally {
-                exec.shutdown();
+        while (!results.isEmpty()){
+
+            Iterator<Future<String>> mFutureIterator = results.listIterator();
+            while (mFutureIterator.hasNext()){
+                Future<String> future = mFutureIterator.next();
+                try {
+                    if (future.isDone()){
+                        System.out.println("future = " + future.get());
+                        mFutureIterator.remove();
+                    }else {
+                        continue;
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } finally {
+                    exec.shutdown();
+                }
             }
+//            for (Future<String> future : results) {
+//                try {
+//                    if (future.isDone()){
+//                        System.out.println("future = " + future.get());
+//                    }else {
+//                        continue;
+//                    }
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                } catch (ExecutionException e) {
+//                    e.printStackTrace();
+//                } finally {
+//                    exec.shutdown();
+//                }
+//            }
         }
+
     }
 
 
